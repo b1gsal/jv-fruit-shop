@@ -10,6 +10,9 @@ public class FruitTransaction {
     public FruitTransaction(Operation operation, String fruit, int quantity) {
         this.operation = operation;
         this.fruit = fruit;
+        if (quantity < 0) {
+            throw new RuntimeException("Quantity can't be negative " + quantity);
+        }
         this.quantity = quantity;
     }
 

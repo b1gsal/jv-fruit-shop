@@ -27,18 +27,22 @@ public class FruitTransaction {
 
     @Override
     public String toString() {
-        return "FruitTransaction{" +
-                "operation=" + operation +
-                ", fruit='" + fruit + '\'' +
-                ", quantity=" + quantity +
-                '}';
+        return "FruitTransaction{"
+                + "operation=" + operation
+                + ", fruit='" + fruit + '\''
+                + ", quantity=" + quantity
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         FruitTransaction that = (FruitTransaction) o;
-        return quantity == that.quantity && operation == that.operation && Objects.equals(fruit, that.fruit);
+        return quantity == that.quantity
+                && operation == that.operation
+                && Objects.equals(fruit, that.fruit);
     }
 
     @Override

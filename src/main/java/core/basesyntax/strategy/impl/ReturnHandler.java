@@ -6,6 +6,6 @@ import core.basesyntax.strategy.OperationHandler;
 public class ReturnHandler implements OperationHandler {
     @Override
     public void handle(String fruit, int quantity) {
-        Storage.storage.merge(fruit, quantity, Integer::sum);
+        Storage.getStorage().merge(fruit, quantity, Integer::sum);
     }
 }

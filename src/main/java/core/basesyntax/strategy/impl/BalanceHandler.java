@@ -6,6 +6,6 @@ import core.basesyntax.strategy.OperationHandler;
 public class BalanceHandler implements OperationHandler {
     @Override
     public void handle(String fruit, int quantity) {
-        Storage.storage.put(fruit, quantity);
+        Storage.getStorage().put(fruit, quantity);
     }
 }

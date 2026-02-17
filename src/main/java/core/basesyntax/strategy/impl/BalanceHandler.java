@@ -7,6 +7,6 @@ public class BalanceHandler implements OperationHandler {
     @Override
     public void handle(String fruit, int quantity) {
         validation(fruit, quantity);
-        Storage.getStorage().put(fruit, quantity);
+        Storage.add(fruit, quantity);
     }
 }

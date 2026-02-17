@@ -7,6 +7,6 @@ public class SupplyHandler implements OperationHandler {
     @Override
     public void handle(String fruit, int quantity) {
         validation(fruit, quantity);
-        Storage.getStorage().merge(fruit, quantity, Integer::sum);
+        Storage.add(fruit, quantity);
     }
 }

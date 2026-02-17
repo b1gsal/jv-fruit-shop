@@ -7,13 +7,13 @@ public class PurchaseHandler implements OperationHandler {
     @Override
     public void handle(String fruit, int quantity) {
         validation(fruit, quantity);
-        Integer currentQuantity = Storage.getStorage().get(fruit);
+        Integer currentQuantity = Storage.get(fruit);
         if (currentQuantity == null || currentQuantity < quantity) {
             throw new RuntimeException("Not enough fruit "
                     + fruit + " in storage to remove. "
                     + "Current: " + currentQuantity + ", "
                     + "Requested " + quantity);
         }
-        Storage.getStorage().put(fruit, currentQuantity - quantity);
+        Storage.put(fruit, currentQuantity - quantity);
     }
 }

@@ -22,6 +22,9 @@ public class ShopServiceImpl implements ShopService {
             throw new RuntimeException("transaction can't be null");
         }
         for (FruitTransaction transaction : transactions) {
+            if (transaction == null) {
+                throw new RuntimeException("Transaction can't be null");
+            }
             FruitTransaction.Operation currentOperation = transaction.getOperation();
             OperationHandler handler = operationStrategy.getHandler(currentOperation);
             if (handler == null) {

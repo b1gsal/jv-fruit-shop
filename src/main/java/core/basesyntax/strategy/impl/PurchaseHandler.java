@@ -10,9 +10,9 @@ public class PurchaseHandler implements OperationHandler {
         Integer currentQuantity = Storage.getStorage().get(fruit);
         if (currentQuantity == null || currentQuantity < quantity) {
             throw new RuntimeException("Not enough fruit "
-                    + fruit
-                    + " in storage. Current: "
-                    + currentQuantity);
+                    + fruit + " in storage to remove. "
+                    + "Current: " + currentQuantity + ", "
+                    + "Requested " + quantity);
         }
         Storage.getStorage().put(fruit, currentQuantity - quantity);
     }

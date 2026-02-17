@@ -8,11 +8,17 @@ public class FruitTransaction {
     private final int quantity;
 
     public FruitTransaction(Operation operation, String fruit, int quantity) {
-        this.operation = operation;
-        this.fruit = fruit;
+        if (operation == null) {
+            throw new RuntimeException("Operation can't be null");
+        }
+        if (fruit == null || fruit.isEmpty()) {
+            throw new RuntimeException("Fruit can't be null or empty");
+        }
         if (quantity < 0) {
             throw new RuntimeException("Quantity can't be negative " + quantity);
         }
+        this.operation = operation;
+        this.fruit = fruit;
         this.quantity = quantity;
     }
 

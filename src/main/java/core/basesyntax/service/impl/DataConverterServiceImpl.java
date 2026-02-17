@@ -13,15 +13,27 @@ public class DataConverterServiceImpl implements DataConverterService {
 
     @Override
     public List<FruitTransaction> convert(List<String> data) {
+        if (data == null) {
+            throw new RuntimeException("Data list can't be null");
+        }
         List<FruitTransaction> fruitTransactions = new ArrayList<>();
         for (int i = 1; i < data.size(); i++) {
-            String[] splitLine = data.get(i).split(REGEX);
-            if (splitLine.length == 3) {
+            String line = data.get(i);
+            String[] splitLine = line.split(REGEX);
+            if (splitLine.length != 3) {
+                throw new RuntimeException("Not valid csv format at line: " + line);
+            }
+            String operationCode = splitLine[POSITION_OPERATION].trim();
+            String fruitName = splitLine[POSITION_FRUIT_TYPE].trim();
+            String quantityString = splitLine[POSITION_QUANTITY].trim();
+            try {
+                int quantity = Integer.parseInt(quantityString);
                 FruitTransaction.Operation operation = FruitTransaction
-                        .Operation.fromCode(splitLine[POSITION_OPERATION]);
-                String fruitType = splitLine[POSITION_FRUIT_TYPE];
-                int quantity = Integer.parseInt(splitLine[POSITION_QUANTITY]);
-                fruitTransactions.add(new FruitTransaction(operation, fruitType, quantity));
+                        .Operation
+                        .fromCode(operationCode);
+                fruitTransactions.add(new FruitTransaction(operation, fruitName, quantity));
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("Not valid quantity: " + quantityString, e);
             }
         }
         return fruitTransactions;

@@ -19,6 +19,9 @@ public class DataConverterServiceImpl implements DataConverterService {
         List<FruitTransaction> fruitTransactions = new ArrayList<>();
         for (int i = 1; i < data.size(); i++) {
             String line = data.get(i);
+            if (line == null) {
+                throw new RuntimeException("Data in fruitTransactions can't be null");
+            }
             String[] splitLine = line.split(REGEX);
             if (splitLine.length != 3) {
                 throw new RuntimeException("Not valid csv format at line: " + line);

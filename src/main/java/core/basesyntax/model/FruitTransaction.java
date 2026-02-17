@@ -72,6 +72,9 @@ public class FruitTransaction {
         }
 
         public static Operation fromCode(String code) {
+            if (code == null || code.isEmpty()) {
+                throw new RuntimeException("Operation code can't be null");
+            }
             for (Operation operation : values()) {
                 if (operation.code.equals(code)) {
                     return operation;

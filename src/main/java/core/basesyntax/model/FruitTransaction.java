@@ -11,14 +11,14 @@ public class FruitTransaction {
         if (operation == null) {
             throw new RuntimeException("Operation can't be null");
         }
-        if (fruit == null || fruit.isEmpty()) {
-            throw new RuntimeException("Fruit can't be null or empty");
+        if (fruit == null || fruit.isBlank()) {
+            throw new RuntimeException("Fruit name can't be null or empty");
         }
         if (quantity < 0) {
             throw new RuntimeException("Quantity can't be negative " + quantity);
         }
         this.operation = operation;
-        this.fruit = fruit;
+        this.fruit = fruit.trim();
         this.quantity = quantity;
     }
 
@@ -72,15 +72,16 @@ public class FruitTransaction {
         }
 
         public static Operation fromCode(String code) {
-            if (code == null || code.isEmpty()) {
-                throw new RuntimeException("Operation code can't be null");
+            if (code == null || code.isBlank()) {
+                throw new RuntimeException("Operation code can't be null or empty");
             }
+            String trimCode = code.trim();
             for (Operation operation : values()) {
-                if (operation.code.equals(code)) {
+                if (operation.code.equals(trimCode)) {
                     return operation;
                 }
             }
-            throw new RuntimeException("Not available operation code " + code);
+            throw new RuntimeException("Not available operation code " + trimCode);
         }
 
         public String getCode() {

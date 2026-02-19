@@ -9,7 +9,7 @@ public class ReportGeneratorImpl implements ReportGenerator {
     @Override
     public String getReport() {
         StringBuilder builder = new StringBuilder(HEADER);
-        for (var entry : Storage.getStorage().entrySet()) {
+        for (var entry : Storage.getAll().entrySet()) {
             builder.append("\n")
                     .append(entry.getKey())
                     .append(",")

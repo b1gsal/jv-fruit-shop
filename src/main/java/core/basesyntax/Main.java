@@ -1,5 +1,6 @@
 package core.basesyntax;
 
+import core.basesyntax.db.Storage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.DataConverterService;
 import core.basesyntax.service.ReaderService;
@@ -38,7 +39,7 @@ public class Main {
         List<String> dataFromFile = readerService.read("src/main/resources/reportToRead.csv");
         List<FruitTransaction> convertData = dataConverterService.convert(dataFromFile);
         shopService.process(convertData);
-        String report = reportGenerator.getReport();
+        String report = reportGenerator.getReport(Storage.getAll());
         writerService.write(report, "src/main/resources/finalReport.csv");
     }
 }

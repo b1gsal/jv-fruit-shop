@@ -1,19 +1,23 @@
 package core.basesyntax.service.impl;
 
-import core.basesyntax.db.Storage;
 import core.basesyntax.service.ReportGenerator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ReportGeneratorImpl implements ReportGenerator {
     private static final String HEADER = "fruit,quantity";
 
     @Override
-    public String getReport() {
+    public String getReport(Map<String, Integer> storage) {
         StringBuilder builder = new StringBuilder(HEADER);
-        for (var entry : Storage.getAll().entrySet()) {
+        List<String> fruits = new ArrayList<>(storage.keySet());
+        fruits.sort(String::compareTo);
+        for (String fruit : fruits) {
             builder.append("\n")
-                    .append(entry.getKey())
-                    .append(",")
-                    .append(entry.getValue());
+                    .append(fruit)
+                    .append(',')
+                    .append(storage.get(fruit));
         }
         return builder.toString();
     }

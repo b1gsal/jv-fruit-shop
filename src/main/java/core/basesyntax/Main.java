@@ -29,19 +29,16 @@ public class Main {
         operationsMap.put(FruitTransaction.Operation.SUPPLY, new SupplyHandler());
         operationsMap.put(FruitTransaction.Operation.RETURN, new ReturnHandler());
         operationsMap.put(FruitTransaction.Operation.PURCHASE, new PurchaseHandler());
-
         OperationStrategy operationStrategy = new OperationStrategyImpl(operationsMap);
         ReaderService readerService = new ReaderServiceImpl();
         DataConverterService dataConverterService = new DataConverterServiceImpl();
         ShopService shopService = new ShopServiceImpl(operationStrategy);
         ReportGenerator reportGenerator = new ReportGeneratorImpl();
         WriterService writerService = new FileWriterServiceImpl();
-
         List<String> dataFromFile = readerService.read("src/main/resources/reportToRead.csv");
         List<FruitTransaction> convertData = dataConverterService.convert(dataFromFile);
         shopService.process(convertData);
         String report = reportGenerator.getReport();
         writerService.write(report, "src/main/resources/finalReport.csv");
-
     }
 }

@@ -19,12 +19,13 @@ public class DataConverterServiceImpl implements DataConverterService {
         List<FruitTransaction> fruitTransactions = new ArrayList<>();
         for (int i = 1; i < data.size(); i++) {
             String line = data.get(i);
-            if (line == null) {
-                throw new RuntimeException("Data in fruitTransactions can't be null");
+            if (line == null || line.isBlank()) {
+                throw new RuntimeException("Data in fruitTransactions can't be null or empty");
             }
             String[] splitLine = line.split(REGEX);
             if (splitLine.length != 3) {
-                throw new RuntimeException("Not valid csv format at line: " + line);
+                throw new RuntimeException("Not valid csv format at line: "
+                        + line + ", with index: " + i);
             }
             String operationCode = splitLine[POSITION_OPERATION].trim();
             String fruitName = splitLine[POSITION_FRUIT_TYPE].trim();
@@ -36,7 +37,9 @@ public class DataConverterServiceImpl implements DataConverterService {
                         .fromCode(operationCode);
                 fruitTransactions.add(new FruitTransaction(operation, fruitName, quantity));
             } catch (NumberFormatException e) {
-                throw new RuntimeException("Not valid quantity: " + quantityString, e);
+                throw new RuntimeException("Not valid quantity: " + quantityString
+                        + "in line: " + line
+                        + ", with index: " + i, e);
             }
         }
         return fruitTransactions;

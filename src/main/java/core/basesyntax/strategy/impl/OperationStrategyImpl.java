@@ -25,6 +25,6 @@ public class OperationStrategyImpl implements OperationStrategy {
         if (handler == null) {
             throw new RuntimeException("Can't find handler for operation: " + operation);
         }
-        return operations.get(operation);
+        return handler;
     }
 }

@@ -19,11 +19,12 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public void process(List<FruitTransaction> transactions) {
         if (transactions == null) {
-            throw new RuntimeException("transaction can't be null");
+            throw new RuntimeException("Transactions list can't be null");
         }
-        for (FruitTransaction transaction : transactions) {
+        for (int i = 0; i < transactions.size(); i++) {
+            FruitTransaction transaction = transactions.get(i);
             if (transaction == null) {
-                throw new RuntimeException("Transaction can't be null");
+                throw new RuntimeException("Transaction at index " + i + " is null");
             }
             FruitTransaction.Operation currentOperation = transaction.getOperation();
             OperationHandler handler = operationStrategy.getHandler(currentOperation);

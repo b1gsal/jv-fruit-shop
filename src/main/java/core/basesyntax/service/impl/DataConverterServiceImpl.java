@@ -9,7 +9,7 @@ public class DataConverterServiceImpl implements DataConverterService {
     private static final int POSITION_OPERATION = 0;
     private static final int POSITION_FRUIT_TYPE = 1;
     private static final int POSITION_QUANTITY = 2;
-    private static final String REGEX = ",";
+    private static final String REGEX_SEPARATOR = ",";
 
     @Override
     public List<FruitTransaction> convert(List<String> data) {
@@ -22,7 +22,7 @@ public class DataConverterServiceImpl implements DataConverterService {
             if (line == null || line.isBlank()) {
                 throw new RuntimeException("Data in fruitTransactions can't be null or empty");
             }
-            String[] splitLine = line.split(REGEX);
+            String[] splitLine = line.split(REGEX_SEPARATOR);
             if (splitLine.length != 3) {
                 throw new RuntimeException("Not valid csv format at line: "
                         + line + ", with index: " + i);

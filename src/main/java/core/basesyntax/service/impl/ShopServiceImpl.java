@@ -18,19 +18,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public void process(List<FruitTransaction> transactions) {
-        if (transactions == null) {
-            throw new RuntimeException("Transactions list can't be null");
+        if (transactions == null || transactions.isEmpty()) {
+            throw new RuntimeException("Transactions list can't be null or empty");
         }
-        for (int i = 0; i < transactions.size(); i++) {
-            FruitTransaction transaction = transactions.get(i);
-            if (transaction == null) {
-                throw new RuntimeException("Transaction at index " + i + " is null");
-            }
+        for (FruitTransaction transaction : transactions) {
             FruitTransaction.Operation currentOperation = transaction.getOperation();
             OperationHandler handler = operationStrategy.getHandler(currentOperation);
-            if (handler == null) {
-                throw new RuntimeException("Can't find handler for operation: " + currentOperation);
-            }
             handler.handle(transaction.getFruit(), transaction.getQuantity());
         }
     }

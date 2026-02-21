@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
+    private static final String FILE_PATH_TO_READ_FROM = "src/main/resources/reportToRead.csv";
+    private static final String FILE_PATH_TO_WRITE = "src/main/resources/finalReport.csv";
+
     public static void main(String[] args) {
         Map<FruitTransaction.Operation, OperationHandler> operationsMap = new HashMap<>();
         operationsMap.put(FruitTransaction.Operation.BALANCE, new BalanceHandler());
@@ -36,10 +39,10 @@ public class Main {
         ShopService shopService = new ShopServiceImpl(operationStrategy);
         ReportGenerator reportGenerator = new ReportGeneratorImpl();
         WriterService writerService = new FileWriterServiceImpl();
-        List<String> dataFromFile = readerService.read("src/main/resources/reportToRead.csv");
+        List<String> dataFromFile = readerService.read(FILE_PATH_TO_READ_FROM);
         List<FruitTransaction> convertData = dataConverterService.convert(dataFromFile);
         shopService.process(convertData);
         String report = reportGenerator.getReport(Storage.getAll());
-        writerService.write(report, "src/main/resources/finalReport.csv");
+        writerService.write(report, FILE_PATH_TO_WRITE);
     }
 }

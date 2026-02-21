@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class ReportGeneratorImpl implements ReportGenerator {
     private static final String HEADER = "fruit,quantity";
+    private static final String REPORT_SEPARATOR = ",";
 
     @Override
     public String getReport(Map<String, Integer> storage) {
@@ -14,9 +15,9 @@ public class ReportGeneratorImpl implements ReportGenerator {
         List<String> fruits = new ArrayList<>(storage.keySet());
         fruits.sort(String::compareTo);
         for (String fruit : fruits) {
-            builder.append("\n")
+            builder.append(System.lineSeparator())
                     .append(fruit)
-                    .append(',')
+                    .append(REPORT_SEPARATOR)
                     .append(storage.get(fruit));
         }
         return builder.toString();

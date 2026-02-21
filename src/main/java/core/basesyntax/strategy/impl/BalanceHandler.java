@@ -6,7 +6,6 @@ import core.basesyntax.strategy.OperationHandler;
 public class BalanceHandler implements OperationHandler {
     @Override
     public void handle(String fruit, int quantity) {
-        validation(fruit, quantity);
         Storage.mergeQuantity(fruit, quantity);
     }
 }
